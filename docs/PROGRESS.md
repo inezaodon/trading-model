@@ -25,7 +25,7 @@ Educational / research only — **not** investment advice, **no** live order rou
 | 1 | `gbm` | Geometric Brownian Motion Stock Price Simulator | `cursor/p1-gbm-dedd` | `projects/01-gbm-simulator/` | done |
 | 2 | `mc-options` | Monte Carlo Option Pricing (EU call/put) | `cursor/p2-mc-options-dedd` | `projects/02-mc-option-pricing/` | done |
 | 3 | `brownian` | Brownian Motion & Random Walk Visualizer | `cursor/p3-brownian-dedd` | `projects/03-brownian-visualizer/` | pending |
-| 4 | `ou` | Ornstein–Uhlenbeck Mean Reversion | `cursor/p4-ou-dedd` | `projects/04-ornstein-uhlenbeck/` | pending |
+| 4 | `ou` | Ornstein–Uhlenbeck Mean Reversion | `cursor/p4-ou-dedd` | `projects/04-ornstein-uhlenbeck/` | done |
 | 5 | `heston` | Heston Stochastic Volatility Simulator | `cursor/p5-heston-dedd` | `projects/05-heston-simulator/` | done |
 | 6 | `var` | Monte Carlo Value-at-Risk Engine | `cursor/p6-var-dedd` | `projects/06-monte-carlo-var/` | done |
 | 7 | `rough-vol` | Rough Volatility (Rough Bergomi) Simulator | `cursor/p7-rough-vol-dedd` | `projects/07-rough-volatility/` | done |
@@ -174,12 +174,15 @@ Sources to probe: Yahoo Finance (`yfinance`), Treasury.gov CSV archives, FRED (i
 ### p2 MC options merged
 - Merged `cursor/p2-mc-options-dedd` (`5a90f23`) into merge branch; 19 pytest passed upstream.
 
+### p4 OU merged
+- Merged `cursor/p4-ou-dedd` (`ad20f8c`) into merge branch; 19 pytest passed upstream.
+
 ## Merge checklist → `dev`
 
 - [x] p1 GBM done
 - [x] p2 MC options done
 - [ ] p3 Brownian done
-- [ ] p4 OU done
+- [x] p4 OU done
 - [x] p5 Heston done
 - [x] p6 VaR done
 - [x] p7 Rough vol done
