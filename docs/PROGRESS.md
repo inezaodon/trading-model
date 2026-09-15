@@ -28,7 +28,7 @@ Educational / research only — **not** investment advice, **no** live order rou
 | 4 | `ou` | Ornstein–Uhlenbeck Mean Reversion | `cursor/p4-ou-dedd` | `projects/04-ornstein-uhlenbeck/` | pending |
 | 5 | `heston` | Heston Stochastic Volatility Simulator | `cursor/p5-heston-dedd` | `projects/05-heston-simulator/` | done |
 | 6 | `var` | Monte Carlo Value-at-Risk Engine | `cursor/p6-var-dedd` | `projects/06-monte-carlo-var/` | pending |
-| 7 | `rough-vol` | Rough Volatility (Rough Bergomi) Simulator | `cursor/p7-rough-vol-dedd` | `projects/07-rough-volatility/` | pending |
+| 7 | `rough-vol` | Rough Volatility (Rough Bergomi) Simulator | `cursor/p7-rough-vol-dedd` | `projects/07-rough-volatility/` | done |
 
 > Project 7 fills the “7 projects” list (user listed 1–6 explicitly; #7 continues modern stochastic calculus from earlier research: rough vol / fractional kernels).
 
@@ -137,6 +137,11 @@ Sources to probe: Yahoo Finance (`yfinance`), Treasury.gov CSV archives, FRED (i
   - Umbrella web/API: `bc-43eb4849-f464-55fe-952d-751b30a6f9c8`
 - After all succeed: merge into branch **`dev`** (never `main` until user asks).
 
+### p7 rough-vol (2026-09-15)
+
+- Shipped `projects/07-rough-volatility/`: hybrid RL kernel (H≈0.1), ξ₀ knots, NASDAQ IV calibrate CLI, JSON + pytest.
+- Branch `cursor/p7-rough-vol-dedd`. Standalone polish of `packages/core-math` rough Bergomi.
+
 ---
 
 
@@ -154,7 +159,7 @@ Sources to probe: Yahoo Finance (`yfinance`), Treasury.gov CSV archives, FRED (i
 - [ ] p4 OU done
 - [x] p5 Heston done
 - [ ] p6 VaR done
-- [ ] p7 Rough vol done
+- [x] p7 Rough vol done
 - [ ] Dataset survey written + selected datasets vendored/cached
 - [ ] `apps/api` serves all 7
 - [ ] `apps/web` shows all 7
