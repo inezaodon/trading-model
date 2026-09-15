@@ -32,9 +32,28 @@ packages/
   strategies/      # Delta-hedge, vol-arb, model-based signals
   orchestrator/    # Node multi-agent runner (spawn & delegate)
   dashboard/       # Lightweight viz of paths, vol, PnL
+apps/
+  api/             # FastAPI umbrella backend (7 project engines)
+  web/             # Single website for all 7 demos
+projects/          # Self-contained demo apps (merged by orchestrator)
 ```
 
-## Quick start
+## Umbrella website + API
+
+```bash
+# install + serve API and static web on :8000
+make demo
+# or
+npm run demo:umbrella
+
+# smoke-test all 7 run endpoints
+make smoke
+```
+
+Open http://127.0.0.1:8000/ — brand **Trading Model**, nav to all seven projects.
+Integration handoff: [`docs/PROGRESS.md`](docs/PROGRESS.md).
+
+## Quick start (Node orchestrator)
 
 ```bash
 # from repo root

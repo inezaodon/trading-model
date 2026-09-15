@@ -13,6 +13,8 @@
     "build": "npm run build -w packages/market-data && npm run build -w packages/strategies && npm run build -w packages/orchestrator && npm run build -w packages/dashboard",
     "test": "npm run test -w packages/market-data && npm run test -w packages/strategies && npm run test -w packages/orchestrator && cd packages/core-math && python3 -m pytest -q",
     "demo": "npm run demo -w packages/orchestrator",
+    "demo:umbrella": "./scripts/run-demo.sh",
+    "smoke:api": "./scripts/smoke-api.sh",
     "agents": "npm run agents -w packages/orchestrator --"
   },
   "engines": {

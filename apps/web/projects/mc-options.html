@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Monte Carlo Option Pricing — Trading Model</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <header class="site-header" id="site-header"></header>
+    <main>
+      <div class="page-head">
+        <div class="crumb">PROJECT · mc-options</div>
+        <h1>Monte Carlo Option Pricing</h1>
+        <p>Price European calls/puts under risk-neutral GBM and compare to the Black–Scholes closed form.</p>
+        <div class="math-blurb">V = e^{-rT} E[payoff(S_T)]</div>
+      </div>
+      <div class="layout-run">
+        <aside class="panel">
+          <h2>Parameters</h2>
+          <form id="run-form" class="form-grid">
+          <label>Spot S₀<input name="s0" type="number" value="100" step="0.01" required /></label>
+          <label>Strike K<input name="k" type="number" value="100" step="0.01" required /></label>
+          <label>Rate r<input name="r" type="number" value="0.03" step="0.001" required /></label>
+          <label>Vol σ<input name="sigma" type="number" value="0.2" step="0.001" required /></label>
+          <label>Expiry T<input name="t" type="number" value="1" step="0.01" required /></label>
+          <label>Steps<input name="n_steps" type="number" value="100" step="1" required /></label>
+          <label>Paths<input name="n_paths" type="number" value="20000" step="100" required /></label>
+          <label>Option<select name="option"><option value="call" selected>call</option><option value="put">put</option></select></label>
+          <label>Seed<input name="seed" type="number" value="42" step="1" required /></label>
+            <div class="actions">
+              <button class="btn btn-primary" type="submit">Run</button>
+            </div>
+          </form>
+          <div class="status" id="status"></div>
+        </aside>
+        <section class="panel">
+          <h2>Results</h2>
+          <div class="chart-wrap"><canvas id="chart"></canvas></div>
+          <div class="metrics" id="metrics"></div>
+        </section>
+      </div>
+      <p class="disclaimer">Research demo. Not investment advice.</p>
+    </main>
+    <footer class="site-footer" id="site-footer"></footer>
+    <script src="/js/app.js"></script>
+    <script>
+      TM.mountHeader("mc-options");
+      TM.mountFooter();
+      TM.wireRunner({
+        slug: "mc-options",
+        formId: "run-form",
+        canvasId: "chart",
+        statusId: "status",
+        metricsId: "metrics",
+        mode: "hist",
+      });
+    </script>
+  </body>
+</html>

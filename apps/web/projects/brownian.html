@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Brownian Motion Visualizer — Trading Model</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <header class="site-header" id="site-header"></header>
+    <main>
+      <div class="page-head">
+        <div class="crumb">PROJECT · brownian</div>
+        <h1>Brownian Motion Visualizer</h1>
+        <p>Visualize Wiener paths, drift–diffusion Brownian motion, and realized quadratic variation.</p>
+        <div class="math-blurb">W_t ≈ Σ √Δt Z_i ,  ⟨W⟩_t → t</div>
+      </div>
+      <div class="layout-run">
+        <aside class="panel">
+          <h2>Parameters</h2>
+          <form id="run-form" class="form-grid">
+          <label>Horizon T<input name="t" type="number" value="1" step="0.01" required /></label>
+          <label>Steps<input name="n_steps" type="number" value="500" step="1" required /></label>
+          <label>Paths<input name="n_paths" type="number" value="6" step="1" required /></label>
+          <label>Drift<input name="drift" type="number" value="0" step="0.01" required /></label>
+          <label>Diffusion<input name="diffusion" type="number" value="1" step="0.01" required /></label>
+          <label>Seed<input name="seed" type="number" value="7" step="1" required /></label>
+            <div class="actions">
+              <button class="btn btn-primary" type="submit">Run</button>
+            </div>
+          </form>
+          <div class="status" id="status"></div>
+        </aside>
+        <section class="panel">
+          <h2>Results</h2>
+          <div class="chart-wrap"><canvas id="chart"></canvas></div>
+          <div class="metrics" id="metrics"></div>
+        </section>
+      </div>
+      <p class="disclaimer">Research demo. Not investment advice.</p>
+    </main>
+    <footer class="site-footer" id="site-footer"></footer>
+    <script src="/js/app.js"></script>
+    <script>
+      TM.mountHeader("brownian");
+      TM.mountFooter();
+      TM.wireRunner({
+        slug: "brownian",
+        formId: "run-form",
+        canvasId: "chart",
+        statusId: "status",
+        metricsId: "metrics",
+        mode: "brownian",
+      });
+    </script>
+  </body>
+</html>

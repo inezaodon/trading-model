@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Trading Model — Stochastic Calculus Research</title>
+    <meta
+      name="description"
+      content="Umbrella research platform for seven stochastic calculus engines oriented to NASDAQ equity and options markets."
+    />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header" id="site-header"></header>
+    <main>
+      <section class="hero">
+        <h1 class="hero-brand">Trading <span>Model</span></h1>
+        <h2>Stochastic calculus stack for NASDAQ-oriented research</h2>
+        <p>
+          Seven interactive engines — from classical GBM and Brownian motion through Heston and
+          rough Bergomi — for path simulation, option pricing, mean reversion, and portfolio risk.
+          Educational use only.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#projects">Explore projects</a>
+          <a class="btn btn-ghost" href="/projects/gbm">Run GBM demo</a>
+        </div>
+      </section>
+
+      <section class="section" id="stack">
+        <h2>Why this stack</h2>
+        <p>
+          Liquid NASDAQ names and index options show fat tails, leverage (ρ &lt; 0), and steep
+          short-maturity implied-vol skews. Classical Brownian models are a baseline; Markov SV
+          (Heston) and rough volatility improve realism for research calibration and risk.
+        </p>
+      </section>
+
+      <section class="section" id="projects">
+        <h2>Seven projects</h2>
+        <p>Each page exposes parameters, a Run control against the FastAPI backend, and Chart.js visuals.</p>
+        <div class="project-grid" id="project-grid"></div>
+      </section>
+
+      <p class="disclaimer">
+        Not investment advice. No live brokerage connectivity. Data framing references NASDAQ liquid
+        equities/ETFs and synthetic Wiener paths; see repo <code>docs/PROGRESS.md</code>.
+      </p>
+    </main>
+    <footer class="site-footer" id="site-footer"></footer>
+    <script src="/js/app.js"></script>
+    <script>
+      TM.mountHeader();
+      TM.mountFooter();
+      const grid = document.getElementById("project-grid");
+      const copy = {
+        gbm: "Exact log-Euler equity paths",
+        "mc-options": "Risk-neutral European MC vs BS",
+        brownian: "Wiener paths & quadratic variation",
+        ou: "Mean-reverting spreads / rates",
+        heston: "Spot–variance with leverage",
+        var: "Portfolio VaR / CVaR",
+        "rough-vol": "Fractional rough Bergomi",
+      };
+      grid.innerHTML = TM.PROJECTS.map(
+        (p, i) => `
+        <a class="project-link" href="/projects/${p.slug}">
+          <div class="idx">0${i + 1} · ${p.slug}</div>
+          <h3>${p.title}</h3>
+          <p>${copy[p.slug] || p.short}</p>
+        </a>`
+      ).join("");
+    </script>
+  </body>
+</html>

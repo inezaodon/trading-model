@@ -36,8 +36,8 @@ Educational / research only — **not** investment advice, **no** live order rou
 
 | Piece | Branch | Path | Status |
 | --- | --- | --- | --- |
-| API backend | `cursor/umbrella-api-dedd` → merges to `dev` | `apps/api/` | pending |
-| Website frontend | `cursor/umbrella-web-dedd` → merges to `dev` | `apps/web/` | pending |
+| API backend | `cursor/umbrella-web-dedd` → merges to `dev` | `apps/api/` | in_progress |
+| Website frontend | `cursor/umbrella-web-dedd` → merges to `dev` | `apps/web/` | in_progress |
 | Combined | **`dev`** | whole monorepo | pending |
 | `main` | — | — | **do not push until user asks** |
 
