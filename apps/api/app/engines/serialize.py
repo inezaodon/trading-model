@@ -8,15 +8,26 @@ import numpy as np
 
 
 def to_jsonable(obj: Any) -> Any:
+    if obj is None or isinstance(obj, (str, int, float, bool)):
+        return obj
     if isinstance(obj, np.ndarray):
         return obj.tolist()
     if isinstance(obj, (np.floating, np.integer)):
         return obj.item()
     if isinstance(obj, dict):
-        return {k: to_jsonable(v) for k, v in obj.items()}
-    if isinstance(obj, (list, tuple)):
+        return {str(k): to_jsonable(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple, set)):
         return [to_jsonable(v) for v in obj]
-    return obj
+    # dataclasses / simple result objects (e.g. SimulationResult)
+    if hasattr(obj, "_asdict") and callable(obj._asdict):
+        return to_jsonable(obj._asdict())
+    if hasattr(obj, "__dataclass_fields__"):
+        return to_jsonable({k: getattr(obj, k) for k in obj.__dataclass_fields__})
+    if hasattr(obj, "to_dict") and callable(obj.to_dict):
+        return to_jsonable(obj.to_dict())
+    if hasattr(obj, "__dict__"):
+        return to_jsonable({k: v for k, v in vars(obj).items() if not k.startswith("_")})
+    return str(obj)
 
 
 def downsample_paths(paths: np.ndarray, max_paths: int = 12, max_points: int = 400) -> np.ndarray:
