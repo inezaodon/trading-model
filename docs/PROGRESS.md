@@ -26,15 +26,9 @@ Educational / research only — **not** investment advice, **no** live order rou
 | 2 | `mc-options` | Monte Carlo Option Pricing (EU call/put) | `cursor/p2-mc-options-dedd` | `projects/02-mc-option-pricing/` | pending |
 | 3 | `brownian` | Brownian Motion & Random Walk Visualizer | `cursor/p3-brownian-dedd` | `projects/03-brownian-visualizer/` | pending |
 | 4 | `ou` | Ornstein–Uhlenbeck Mean Reversion | `cursor/p4-ou-dedd` | `projects/04-ornstein-uhlenbeck/` | pending |
-<<<<<<< HEAD
 | 5 | `heston` | Heston Stochastic Volatility Simulator | `cursor/p5-heston-dedd` | `projects/05-heston-simulator/` | done |
 | 6 | `var` | Monte Carlo Value-at-Risk Engine | `cursor/p6-var-dedd` | `projects/06-monte-carlo-var/` | done |
 | 7 | `rough-vol` | Rough Volatility (Rough Bergomi) Simulator | `cursor/p7-rough-vol-dedd` | `projects/07-rough-volatility/` | done |
-=======
-| 5 | `heston` | Heston Stochastic Volatility Simulator | `cursor/p5-heston-dedd` | `projects/05-heston-simulator/` | pending |
-| 6 | `var` | Monte Carlo Value-at-Risk Engine | `cursor/p6-var-dedd` | `projects/06-monte-carlo-var/` | done |
-| 7 | `rough-vol` | Rough Volatility (Rough Bergomi) Simulator | `cursor/p7-rough-vol-dedd` | `projects/07-rough-volatility/` | pending |
->>>>>>> cursor/p6-var-dedd
 
 > Project 7 fills the “7 projects” list (user listed 1–6 explicitly; #7 continues modern stochastic calculus from earlier research: rough vol / fractional kernels).
 
@@ -174,15 +168,9 @@ Sources to probe: Yahoo Finance (`yfinance`), Treasury.gov CSV archives, FRED (i
 - [ ] p2 MC options done
 - [ ] p3 Brownian done
 - [ ] p4 OU done
-<<<<<<< HEAD
 - [x] p5 Heston done
 - [x] p6 VaR done
 - [x] p7 Rough vol done
-=======
-- [ ] p5 Heston done
-- [x] p6 VaR done
-- [ ] p7 Rough vol done
->>>>>>> cursor/p6-var-dedd
 - [ ] Dataset survey written + selected datasets vendored/cached
 - [ ] `apps/api` serves all 7
 - [ ] `apps/web` shows all 7
