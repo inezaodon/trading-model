@@ -168,6 +168,9 @@ Sources to probe: Yahoo Finance (`yfinance`), Treasury.gov CSV archives, FRED (i
 ### p6 VaR merged
 - Merged `cursor/p6-var-dedd` (`f946722`) into merge branch; 12 pytest passed upstream.
 
+### p1 GBM merged
+- Merged `cursor/p1-gbm-dedd` (`d973245`) into merge branch; 17 pytest passed upstream.
+
 ## Merge checklist → `dev`
 
 - [x] p1 GBM done
