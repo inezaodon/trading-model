@@ -1,27 +1,35 @@
-# Firebase
+# Firebase — Trading Model
 
-Account: `oineza@nd.edu`
-
-## Status (2026-09-15)
-
-| Step | Result |
+| Field | Value |
 | --- | --- |
-| Google login | OK |
-| GCP project `trading-model-oineza` | **Created** (under ND org `163520073994`) |
-| `projects:addfirebase` via API/CLI | **403 PERMISSION_DENIED** (org policy / role) |
-| `fir-demo-project` list access | Visible, but **no deploy rights** |
-| Local config (`firebase.json`, rules) | Ready |
+| Display name | `trading-model-oineza` |
+| **Firebase Project ID** | `trading-model-oineza-8280d` |
+| Related GCP project | `trading-model-oineza` |
+| Account | `oineza@nd.edu` |
+| Web App | Trading Model Web |
+| Web App ID | `1:245835915410:web:23054acf0a1a051b96c64b` |
 
-## What you must do in the browser
+## Live URLs
 
-1. Open https://console.firebase.google.com/ as `oineza@nd.edu`
-2. **Add project** → use existing GCP project **`trading-model-oineza`** (preferred)
-3. Reply with the Firebase **Project ID**
+- **Hosting:** https://trading-model-oineza-8280d.web.app  
+- **Console:** https://console.firebase.google.com/project/trading-model-oineza-8280d/overview  
+- Auth domain: `trading-model-oineza-8280d.firebaseapp.com`
 
-Then we will: set active project → create Web app → deploy Hosting + Firestore → write `apps/web/firebase-config.json`.
+## Services enabled
 
-## Local files
+| Service | Status |
+| --- | --- |
+| Hosting | Deployed (`apps/web`) |
+| Cloud Firestore | Created `(default)` + rules deployed |
+| Web App + SDK config | `apps/web/firebase-config.json` |
 
-- `firebase.json` — Hosting (`apps/web`) + Firestore
-- `firestore.rules` — `runs` collection demo rules
-- `.firebaserc` — aliases `default` / `dedicated`
+## Client config
+
+See `apps/web/firebase-config.json` (also exposed via API `GET /api/v1/runs` → `firebase_web_config` when present).
+
+## Redeploy
+
+```bash
+cd /agent/trading-model-merge   # or repo root
+npx firebase-tools deploy --only hosting,firestore --project trading-model-oineza-8280d
+```

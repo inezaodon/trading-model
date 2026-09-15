@@ -1,6 +1,8 @@
 {
   "projects": {
-    "default": "fir-demo-project",
-    "dedicated": "trading-model-oineza"
-  }
+    "default": "trading-model-oineza-8280d",
+    "gcp": "trading-model-oineza"
+  },
+  "targets": {},
+  "etags": {}
 }
