@@ -151,6 +151,9 @@ Sources to probe: Yahoo Finance (`yfinance`), Treasury.gov CSV archives, FRED (i
 ### p5 Heston merged
 - Merged `cursor/p5-heston-dedd` (`20b4d8a`) into merge branch; 14 pytest passed upstream.
 
+### p7 Rough vol merged
+- Merged `cursor/p7-rough-vol-dedd` (`8b8600d`) into merge branch; 10 pytest passed upstream.
+
 ## Merge checklist → `dev`
 
 - [ ] p1 GBM done
