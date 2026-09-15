@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "trading-model-oineza"
+    "default": "fir-demo-project",
+    "dedicated": "trading-model-oineza"
   }
 }
