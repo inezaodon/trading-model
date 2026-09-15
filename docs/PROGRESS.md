@@ -24,7 +24,7 @@ Educational / research only — **not** investment advice, **no** live order rou
 | --- | --- | --- | --- | --- | --- |
 | 1 | `gbm` | Geometric Brownian Motion Stock Price Simulator | `cursor/p1-gbm-dedd` | `projects/01-gbm-simulator/` | done |
 | 2 | `mc-options` | Monte Carlo Option Pricing (EU call/put) | `cursor/p2-mc-options-dedd` | `projects/02-mc-option-pricing/` | done |
-| 3 | `brownian` | Brownian Motion & Random Walk Visualizer | `cursor/p3-brownian-dedd` | `projects/03-brownian-visualizer/` | pending |
+| 3 | `brownian` | Brownian Motion & Random Walk Visualizer | `cursor/p3-brownian-dedd` | `projects/03-brownian-visualizer/` | done |
 | 4 | `ou` | Ornstein–Uhlenbeck Mean Reversion | `cursor/p4-ou-dedd` | `projects/04-ornstein-uhlenbeck/` | done |
 | 5 | `heston` | Heston Stochastic Volatility Simulator | `cursor/p5-heston-dedd` | `projects/05-heston-simulator/` | done |
 | 6 | `var` | Monte Carlo Value-at-Risk Engine | `cursor/p6-var-dedd` | `projects/06-monte-carlo-var/` | done |
@@ -153,6 +153,11 @@ Sources to probe: Yahoo Finance (`yfinance`), Treasury.gov CSV archives, FRED (i
 - Built `projects/06-monte-carlo-var/`: GBM + empirical bootstrap MC VaR/ES, equal/custom weights, 95/99, bundled synthetic QQQ/SPY/IWM/TLT/GLD returns, JSON CLI (`python -m monte_carlo_var run`), pytest (12 passed), seed=42.
 - Branch: `cursor/p6-var-dedd`.
 
+### p3 brownian (Odon Ineza, 2026-09-15)
+
+- Built `projects/03-brownian-visualizer/`: standard/scaled 1D BM, 2D Wiener, simple RW + Donsker limit, chart-ready JSON export, optional matplotlib, CLI + pytest (25 passed).
+- Branch: `cursor/p3-brownian-dedd`.
+
 ---
 
 
@@ -177,16 +182,22 @@ Sources to probe: Yahoo Finance (`yfinance`), Treasury.gov CSV archives, FRED (i
 ### p4 OU merged
 - Merged `cursor/p4-ou-dedd` (`ad20f8c`) into merge branch; 19 pytest passed upstream.
 
+### p3 Brownian merged
+- Merged `cursor/p3-brownian-dedd` (`5f77c4a`); 25 pytest passed upstream.
+
+### Dataset survey merged
+- Merged `cursor/dataset-survey-dedd` (`e12a480`); 201 series scored, manifest + samples under `data/`.
+
 ## Merge checklist → `dev`
 
 - [x] p1 GBM done
 - [x] p2 MC options done
-- [ ] p3 Brownian done
+- [x] p3 Brownian done
 - [x] p4 OU done
 - [x] p5 Heston done
 - [x] p6 VaR done
 - [x] p7 Rough vol done
-- [ ] Dataset survey written + selected datasets vendored/cached
+- [x] Dataset survey written + selected datasets vendored/cached
 - [ ] `apps/api` serves all 7
 - [ ] `apps/web` shows all 7
 - [ ] All merged to `dev`
