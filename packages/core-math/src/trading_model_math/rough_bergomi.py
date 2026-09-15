@@ -52,8 +52,7 @@ def _rl_kernel_matrix(times: np.ndarray, hurst: float) -> np.ndarray:
     a local Euler weight so the scheme remains hybrid (hybrid Euler + kernel).
     """
     n = len(times) - 1
-    alpha = hurst + 0.5  # exponent + 1 for antiderivative: ∫ u^{H-1/2} = u^{H+1/2}/(H+1/2)
-    h_half = hurst - 0.5
+    alpha = hurst + 0.5  # antiderivative exponent: ∫ u^{H−1/2} du = u^{H+1/2}/(H+1/2)
     K = np.zeros((n, n), dtype=float)
 
     for i in range(n):
@@ -73,7 +72,7 @@ def _rl_kernel_matrix(times: np.ndarray, hurst: float) -> np.ndarray:
                     K[i, j] = np.log(u1 / max(u0, 1e-300))
                 else:
                     K[i, j] = (u1**alpha - max(u0, 0.0) ** alpha) / alpha
-                # For H < 1/2, h_half < 0; keep non-negative measure
+                # Keep non-negative kernel weights
                 K[i, j] = max(K[i, j], 0.0)
 
     # Normalize so Var(Z_{t_n}) ≈ t_n^{2H} under white-noise drive (hybrid scaling)
