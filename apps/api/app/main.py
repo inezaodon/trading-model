@@ -190,3 +190,10 @@ if WEB_ROOT.is_dir():
         if not f.is_file():
             raise HTTPException(status_code=404)
         return FileResponse(f)
+
+    @app.get("/firebase-config.json")
+    def firebase_config() -> FileResponse:
+        f = WEB_ROOT / "firebase-config.json"
+        if not f.is_file():
+            raise HTTPException(status_code=404, detail="firebase-config.json missing")
+        return FileResponse(f)
