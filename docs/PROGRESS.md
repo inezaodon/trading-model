@@ -36,8 +36,8 @@ Educational / research only — **not** investment advice, **no** live order rou
 
 | Piece | Branch | Path | Status |
 | --- | --- | --- | --- |
-| API backend | `cursor/umbrella-web-dedd` → merges to `dev` | `apps/api/` | in_progress |
-| Website frontend | `cursor/umbrella-web-dedd` → merges to `dev` | `apps/web/` | in_progress |
+| API backend | `cursor/umbrella-web-dedd` → merges to `dev` | `apps/api/` | done |
+| Website frontend | `cursor/umbrella-web-dedd` → merges to `dev` | `apps/web/` | done |
 | Combined | **`dev`** | whole monorepo | pending |
 | `main` | — | — | **do not push until user asks** |
 
@@ -124,6 +124,16 @@ Sources to probe: Yahoo Finance (`yfinance`), Treasury.gov CSV archives, FRED (i
 - Prior packages already merged on `cursor/trading-model-merge-dedd`.
 - Final target: branch `dev` with all projects + `apps/web` + `apps/api`.
 
+### Umbrella web+api (2026-09-15) — branch `cursor/umbrella-web-dedd`
+
+- Built `apps/api` (FastAPI): catalog, datasets stub/manifest, `POST /api/v1/{slug}/run` for all 7 slugs.
+- Engine loader prefers `projects/0N-*/` `run(params)`; else solid fallbacks (GBM/Heston/rough-vol also use `packages/core-math` when importable).
+- Built `apps/web` static site (charcoal/teal, brand **Trading Model**), Chart.js, all 7 project pages + landing.
+- Demo: `./scripts/run-demo.sh` or `make demo` → http://127.0.0.1:8000/
+- Smoke: `./scripts/smoke-api.sh` — all 7 OK.
+- Firebase: memory stub only; not required locally.
+- Do not create `dev` / do not touch `main` (orchestrator merges).
+
 ---
 
 ## Merge checklist → `dev`
@@ -136,8 +146,8 @@ Sources to probe: Yahoo Finance (`yfinance`), Treasury.gov CSV archives, FRED (i
 - [ ] p6 VaR done
 - [ ] p7 Rough vol done
 - [ ] Dataset survey written + selected datasets vendored/cached
-- [ ] `apps/api` serves all 7
-- [ ] `apps/web` shows all 7
+- [x] `apps/api` serves all 7
+- [x] `apps/web` shows all 7
 - [ ] All merged to `dev`
-- [ ] Smoke tests pass
-- [ ] `main` untouched
+- [x] Smoke tests pass (umbrella API fallbacks)
+- [x] `main` untouched
