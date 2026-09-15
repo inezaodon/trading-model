@@ -23,7 +23,7 @@ Educational / research only — **not** investment advice, **no** live order rou
 | # | Slug | Title | Branch | Owns path | Status |
 | --- | --- | --- | --- | --- | --- |
 | 1 | `gbm` | Geometric Brownian Motion Stock Price Simulator | `cursor/p1-gbm-dedd` | `projects/01-gbm-simulator/` | done |
-| 2 | `mc-options` | Monte Carlo Option Pricing (EU call/put) | `cursor/p2-mc-options-dedd` | `projects/02-mc-option-pricing/` | pending |
+| 2 | `mc-options` | Monte Carlo Option Pricing (EU call/put) | `cursor/p2-mc-options-dedd` | `projects/02-mc-option-pricing/` | done |
 | 3 | `brownian` | Brownian Motion & Random Walk Visualizer | `cursor/p3-brownian-dedd` | `projects/03-brownian-visualizer/` | pending |
 | 4 | `ou` | Ornstein–Uhlenbeck Mean Reversion | `cursor/p4-ou-dedd` | `projects/04-ornstein-uhlenbeck/` | pending |
 | 5 | `heston` | Heston Stochastic Volatility Simulator | `cursor/p5-heston-dedd` | `projects/05-heston-simulator/` | done |
@@ -171,10 +171,13 @@ Sources to probe: Yahoo Finance (`yfinance`), Treasury.gov CSV archives, FRED (i
 ### p1 GBM merged
 - Merged `cursor/p1-gbm-dedd` (`d973245`) into merge branch; 17 pytest passed upstream.
 
+### p2 MC options merged
+- Merged `cursor/p2-mc-options-dedd` (`5a90f23`) into merge branch; 19 pytest passed upstream.
+
 ## Merge checklist → `dev`
 
 - [x] p1 GBM done
-- [ ] p2 MC options done
+- [x] p2 MC options done
 - [ ] p3 Brownian done
 - [ ] p4 OU done
 - [x] p5 Heston done
