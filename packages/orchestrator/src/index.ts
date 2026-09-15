@@ -33,3 +33,4 @@ export {
   coreMathDir,
 } from "./paths.js";
 export { parseArgs, printHelp, type CliFlags } from "./args.js";
+export { flattenSurfaceForStrategies } from "./surface.js";

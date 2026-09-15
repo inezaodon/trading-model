@@ -24,6 +24,7 @@ Delegation rules:
 3. If a sibling package/CLI is missing (common during parallel package builds), the agent logs a **warning** and writes a usable mock/placeholder so the pipeline can continue.
 4. `--mock` / `npm run demo` forces placeholders regardless of CLI availability.
 5. Failures are labeled `[agent-name]` in logs; by default the pipeline **stops on first hard failure**.
+6. **Surface wiring:** `market-data` writes a nested ORATS row under `.surface`; `strategies` expects flat `iv30` / `spot`. The strategy-agent normalizes to `artifacts/surface.strategies.json` when needed.
 
 ### Adding an agent
 
