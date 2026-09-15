@@ -1,0 +1,23 @@
+[project]
+name = "trading-model-api"
+version = "0.1.0"
+description = "Umbrella FastAPI backend for Trading Model stochastic calculus projects"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "fastapi>=0.110.0",
+  "uvicorn[standard]>=0.27.0",
+  "numpy>=1.26.0",
+  "pydantic>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = ["httpx>=0.27.0", "pytest>=8.0.0"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["app*"]

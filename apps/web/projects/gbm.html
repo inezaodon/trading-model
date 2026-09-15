@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Geometric Brownian Motion — Trading Model</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <header class="site-header" id="site-header"></header>
+    <main>
+      <div class="page-head">
+        <div class="crumb">PROJECT · gbm</div>
+        <h1>Geometric Brownian Motion</h1>
+        <p>Simulate equity-style paths under classical GBM — the Black–Scholes backbone for NASDAQ liquid names.</p>
+        <div class="math-blurb">dS_t = μ S_t dt + σ S_t dW_t</div>
+      </div>
+      <div class="layout-run">
+        <aside class="panel">
+          <h2>Parameters</h2>
+          <form id="run-form" class="form-grid">
+          <label>Spot S₀<input name="s0" type="number" value="100" step="0.01" required /></label>
+          <label>Drift μ<input name="mu" type="number" value="0.08" step="0.001" required /></label>
+          <label>Vol σ<input name="sigma" type="number" value="0.25" step="0.001" required /></label>
+          <label>Horizon T (years)<input name="t" type="number" value="1" step="0.01" required /></label>
+          <label>Steps<input name="n_steps" type="number" value="252" step="1" required /></label>
+          <label>Paths<input name="n_paths" type="number" value="8" step="1" required /></label>
+          <label>Seed<input name="seed" type="number" value="42" step="1" required /></label>
+            <div class="actions">
+              <button class="btn btn-primary" type="submit">Run</button>
+            </div>
+          </form>
+          <div class="status" id="status"></div>
+        </aside>
+        <section class="panel">
+          <h2>Results</h2>
+          <div class="chart-wrap"><canvas id="chart"></canvas></div>
+          <div class="metrics" id="metrics"></div>
+        </section>
+      </div>
+      <p class="disclaimer">Research demo. Not investment advice.</p>
+    </main>
+    <footer class="site-footer" id="site-footer"></footer>
+    <script src="/js/app.js"></script>
+    <script>
+      TM.mountHeader("gbm");
+      TM.mountFooter();
+      TM.wireRunner({
+        slug: "gbm",
+        formId: "run-form",
+        canvasId: "chart",
+        statusId: "status",
+        metricsId: "metrics",
+        mode: "paths",
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Monte Carlo Value-at-Risk — Trading Model</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <header class="site-header" id="site-header"></header>
+    <main>
+      <div class="page-head">
+        <div class="crumb">PROJECT · var</div>
+        <h1>Monte Carlo Value-at-Risk</h1>
+        <p>Estimate portfolio VaR and CVaR from correlated Gaussian returns on a liquid ETF basket.</p>
+        <div class="math-blurb">VaR_α = −q_α(L) ;  CVaR_α = E[L | L ≥ VaR_α]</div>
+      </div>
+      <div class="layout-run">
+        <aside class="panel">
+          <h2>Parameters</h2>
+          <form id="run-form" class="form-grid">
+          <label>Notional<input name="notional" type="number" value="1000000" step="1000" required /></label>
+          <label>Horizon (days)<input name="horizon_days" type="number" value="10" step="1" required /></label>
+          <label>Simulations<input name="n_sims" type="number" value="20000" step="100" required /></label>
+          <label>Confidence<input name="confidence" type="number" value="0.95" step="0.01" required /></label>
+          <label>Weights (CSV)<input name="weights" type="text" value="0.3,0.25,0.15,0.15,0.1,0.05" required /></label>
+          <label>Tickers (CSV)<input name="tickers" type="text" value="QQQ,SPY,IWM,TLT,GLD,HYG" required /></label>
+          <label>Seed<input name="seed" type="number" value="99" step="1" required /></label>
+            <div class="actions">
+              <button class="btn btn-primary" type="submit">Run</button>
+            </div>
+          </form>
+          <div class="status" id="status"></div>
+        </aside>
+        <section class="panel">
+          <h2>Results</h2>
+          <div class="chart-wrap"><canvas id="chart"></canvas></div>
+          <div class="metrics" id="metrics"></div>
+        </section>
+      </div>
+      <p class="disclaimer">Research demo. Not investment advice.</p>
+    </main>
+    <footer class="site-footer" id="site-footer"></footer>
+    <script src="/js/app.js"></script>
+    <script>
+      TM.mountHeader("var");
+      TM.mountFooter();
+      TM.wireRunner({
+        slug: "var",
+        formId: "run-form",
+        canvasId: "chart",
+        statusId: "status",
+        metricsId: "metrics",
+        mode: "hist",
+      });
+    </script>
+  </body>
+</html>

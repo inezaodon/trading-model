@@ -36,8 +36,8 @@ Educational / research only — **not** investment advice, **no** live order rou
 
 | Piece | Branch | Path | Status |
 | --- | --- | --- | --- |
-| API backend | `cursor/umbrella-api-dedd` → merges to `dev` | `apps/api/` | pending |
-| Website frontend | `cursor/umbrella-web-dedd` → merges to `dev` | `apps/web/` | pending |
+| API backend | `cursor/umbrella-web-dedd` → merges to `dev` | `apps/api/` | done |
+| Website frontend | `cursor/umbrella-web-dedd` → merges to `dev` | `apps/web/` | done |
 | Combined | **`dev`** | whole monorepo | pending |
 | `main` | — | — | **do not push until user asks** |
 
@@ -158,6 +158,16 @@ Sources to probe: Yahoo Finance (`yfinance`), Treasury.gov CSV archives, FRED (i
 - Built `projects/03-brownian-visualizer/`: standard/scaled 1D BM, 2D Wiener, simple RW + Donsker limit, chart-ready JSON export, optional matplotlib, CLI + pytest (25 passed).
 - Branch: `cursor/p3-brownian-dedd`.
 
+### Umbrella web+api (2026-09-15) — branch `cursor/umbrella-web-dedd`
+
+- Built `apps/api` (FastAPI): catalog, datasets stub/manifest, `POST /api/v1/{slug}/run` for all 7 slugs.
+- Engine loader prefers `projects/0N-*/` `run(params)`; else solid fallbacks (GBM/Heston/rough-vol also use `packages/core-math` when importable).
+- Built `apps/web` static site (charcoal/teal, brand **Trading Model**), Chart.js, all 7 project pages + landing.
+- Demo: `./scripts/run-demo.sh` or `make demo` → http://127.0.0.1:8000/
+- Smoke: `./scripts/smoke-api.sh` — all 7 OK.
+- Firebase: memory stub only; not required locally.
+- Do not create `dev` / do not touch `main` (orchestrator merges).
+
 ---
 
 
@@ -188,6 +198,9 @@ Sources to probe: Yahoo Finance (`yfinance`), Treasury.gov CSV archives, FRED (i
 ### Dataset survey merged
 - Merged `cursor/dataset-survey-dedd` (`e12a480`); 201 series scored, manifest + samples under `data/`.
 
+### Umbrella web/API merged
+- Merged `cursor/umbrella-web-dedd` (`06f5569`); FastAPI + charcoal/teal site; smoke for 7 `/run` endpoints.
+
 ## Merge checklist → `dev`
 
 - [x] p1 GBM done
@@ -198,8 +211,8 @@ Sources to probe: Yahoo Finance (`yfinance`), Treasury.gov CSV archives, FRED (i
 - [x] p6 VaR done
 - [x] p7 Rough vol done
 - [x] Dataset survey written + selected datasets vendored/cached
-- [ ] `apps/api` serves all 7
-- [ ] `apps/web` shows all 7
+- [x] `apps/api` serves all 7
+- [x] `apps/web` shows all 7
 - [ ] All merged to `dev`
-- [ ] Smoke tests pass
-- [ ] `main` untouched
+- [x] Smoke tests pass (umbrella API fallbacks)
+- [x] `main` untouched

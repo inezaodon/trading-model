@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Heston Stochastic Volatility — Trading Model</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <header class="site-header" id="site-header"></header>
+    <main>
+      <div class="page-head">
+        <div class="crumb">PROJECT · heston</div>
+        <h1>Heston Stochastic Volatility</h1>
+        <p>Simulate spot and variance with correlated Brownian motions — equity leverage ρ &lt; 0.</p>
+        <div class="math-blurb">dS = μS dt + √v S dWˢ ;  dv = κ(θ−v)dt + ξ√v dWᵛ</div>
+      </div>
+      <div class="layout-run">
+        <aside class="panel">
+          <h2>Parameters</h2>
+          <form id="run-form" class="form-grid">
+          <label>Spot S₀<input name="s0" type="number" value="100" step="0.01" required /></label>
+          <label>Variance v₀<input name="v0" type="number" value="0.04" step="0.001" required /></label>
+          <label>Drift μ<input name="mu" type="number" value="0.05" step="0.001" required /></label>
+          <label>Mean reversion κ<input name="kappa" type="number" value="2" step="0.01" required /></label>
+          <label>Long-run θ<input name="theta" type="number" value="0.04" step="0.001" required /></label>
+          <label>Vol-of-vol ξ<input name="xi" type="number" value="0.5" step="0.01" required /></label>
+          <label>Correlation ρ<input name="rho" type="number" value="-0.7" step="0.01" required /></label>
+          <label>Horizon T<input name="t" type="number" value="1" step="0.01" required /></label>
+          <label>Steps<input name="n_steps" type="number" value="252" step="1" required /></label>
+          <label>Paths<input name="n_paths" type="number" value="6" step="1" required /></label>
+          <label>Scheme<select name="scheme"><option value="qe" selected>qe</option><option value="euler">euler</option></select></label>
+          <label>Seed<input name="seed" type="number" value="42" step="1" required /></label>
+            <div class="actions">
+              <button class="btn btn-primary" type="submit">Run</button>
+            </div>
+          </form>
+          <div class="status" id="status"></div>
+        </aside>
+        <section class="panel">
+          <h2>Results</h2>
+          <div class="chart-wrap"><canvas id="chart"></canvas></div>
+          <div class="metrics" id="metrics"></div>
+        </section>
+      </div>
+      <p class="disclaimer">Research demo. Not investment advice.</p>
+    </main>
+    <footer class="site-footer" id="site-footer"></footer>
+    <script src="/js/app.js"></script>
+    <script>
+      TM.mountHeader("heston");
+      TM.mountFooter();
+      TM.wireRunner({
+        slug: "heston",
+        formId: "run-form",
+        canvasId: "chart",
+        statusId: "status",
+        metricsId: "metrics",
+        mode: "dual",
+      });
+    </script>
+  </body>
+</html>
