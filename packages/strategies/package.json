@@ -1,0 +1,14 @@
+{
+  "name": "@trading-model/strategies",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Delta-hedge, volatility signals, and backtest engine",
+  "type": "module",
+  "main": "./dist/index.js",
+  "bin": { "strategy-agent": "./dist/cli.js" },
+  "scripts": {
+    "build": "node -e \"console.log('strategies: stub build — using existing dist if present')\"",
+    "test": "node -e \"console.log('strategies: stub test')\""
+  },
+  "engines": { "node": ">=20" }
+}
