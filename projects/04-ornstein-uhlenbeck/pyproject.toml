@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ornstein-uhlenbeck"
+version = "0.1.0"
+description = "Ornstein–Uhlenbeck mean-reversion simulator, fitter, and z-score spread demo (research only)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Odon Ineza", email = "oineza@nd.edu" }]
+dependencies = [
+  "numpy>=1.24",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.4",
+]
+
+[project.scripts]
+ou = "ornstein_uhlenbeck.cli:main"
+ornstein-uhlenbeck = "ornstein_uhlenbeck.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+ornstein_uhlenbeck = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
