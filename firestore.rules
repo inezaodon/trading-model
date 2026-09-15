@@ -1,0 +1,18 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Run history: public read for demo; authenticated write preferred.
+    // Tighten before production.
+    match /runs/{runId} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasAll(['slug', 'created_at', 'backend'])
+                    && request.resource.data.slug is string
+                    && request.resource.data.backend is string;
+      allow update, delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

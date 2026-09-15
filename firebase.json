@@ -1,0 +1,46 @@
+{
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "hosting": {
+    "public": "apps/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "**/README.md"
+    ],
+    "cleanUrls": true,
+    "rewrites": [
+      {
+        "source": "/projects/gbm",
+        "destination": "/projects/gbm.html"
+      },
+      {
+        "source": "/projects/mc-options",
+        "destination": "/projects/mc-options.html"
+      },
+      {
+        "source": "/projects/brownian",
+        "destination": "/projects/brownian.html"
+      },
+      {
+        "source": "/projects/ou",
+        "destination": "/projects/ou.html"
+      },
+      {
+        "source": "/projects/heston",
+        "destination": "/projects/heston.html"
+      },
+      {
+        "source": "/projects/var",
+        "destination": "/projects/var.html"
+      },
+      {
+        "source": "/projects/rough-vol",
+        "destination": "/projects/rough-vol.html"
+      }
+    ]
+  }
+}
