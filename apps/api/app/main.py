@@ -149,10 +149,15 @@ def run_project(slug: str, body: RunBody | None = None) -> dict:
 
 @app.get("/api/v1/runs")
 def list_runs() -> dict:
+    runs = firebase_stub.list_runs()
+    backend = "memory-stub"
+    if runs and isinstance(runs[0], dict) and runs[0].get("backend"):
+        backend = str(runs[0]["backend"])
     return {
         "enabled": firebase_stub.is_enabled(),
-        "backend": "memory-stub",
-        "runs": firebase_stub.list_runs(),
+        "backend": backend,
+        "firebase_web_config": firebase_stub.web_config(),
+        "runs": runs,
     }
 
 
