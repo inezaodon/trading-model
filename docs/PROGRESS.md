@@ -123,8 +123,25 @@ Sources to probe: Yahoo Finance (`yfinance`), Treasury.gov CSV archives, FRED (i
 - Created this PROGRESS.md and launched 7 project agents + dataset survey + umbrella plan.
 - Prior packages already merged on `cursor/trading-model-merge-dedd`.
 - Final target: branch `dev` with all projects + `apps/web` + `apps/api`.
+- Firebase MCP: **not logged in** — human must complete login (session shown in chat) before Hosting/Firestore deploy.
+- Worktrees under `/agent/wt/{p1-gbm,p2-mc-options,p3-brownian,p4-ou,p5-heston,p6-var,p7-rough-vol,umbrella}`.
+- Live agents:
+  - p1 GBM: `bc-a787331d-43d7-566d-a999-87bb9ccfcd9d`
+  - p2 MC options: `bc-64dbb699-b09f-5677-aaf5-c29c641c2f96`
+  - p3 Brownian: `bc-d83363be-6095-5e3a-ba62-e19a49bb27dc`
+  - p4 OU: `bc-73d26277-90e0-5585-bbe7-bb3aa3b4c56c`
+  - p5 Heston: `bc-04e702cc-8d8b-5f4b-93c1-75ff8f872bc6`
+  - p6 VaR: `bc-f73eb3ce-df78-515a-bcff-4a9edc1c0e1e`
+  - p7 Rough vol: `bc-29003dcd-a4d4-5719-b349-755a4ce6d16a`
+  - Dataset survey: `bc-0f266286-43b5-51f7-9890-092979da60e4`
+  - Umbrella web/API: `bc-43eb4849-f464-55fe-952d-751b30a6f9c8`
+- After all succeed: merge into branch **`dev`** (never `main` until user asks).
 
 ---
+
+
+### Orchestrator dashboard agent (merged)
+- Merged `cursor/orchestrator-dashboard-4c38` tip into `cursor/trading-model-merge-dedd` (registry, demo pipeline, dashboard UI).
 
 ## Merge checklist → `dev`
 
