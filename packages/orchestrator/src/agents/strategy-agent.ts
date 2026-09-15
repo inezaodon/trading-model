@@ -3,12 +3,14 @@ import path from "node:path";
 import { logAgent } from "../logger.js";
 import { fileExists, strategiesCli } from "../paths.js";
 import { runCommandOrThrow } from "../spawn.js";
+import { flattenSurfaceForStrategies } from "../surface.js";
 import type {
   AgentContext,
   AgentDefinition,
   AgentResult,
   BacktestArtifact,
   PathsArtifact,
+  SurfaceArtifact,
 } from "../types.js";
 
 async function readPaths(pathsPath: string): Promise<PathsArtifact | null> {
@@ -88,6 +90,25 @@ async function runStrategyAgent(ctx: AgentContext): Promise<AgentResult> {
   try {
     if (!ctx.mock && fileExists(cli)) {
       logAgent("strategy-agent", "info", `Running strategies CLI → ${outPath}`);
+      // market-data nests ORATS fields under `.surface`; strategies wants flat iv30/spot.
+      let surfaceForCli = surfacePath;
+      try {
+        const raw = JSON.parse(await fs.readFile(surfacePath, "utf8")) as SurfaceArtifact;
+        const flat = flattenSurfaceForStrategies(raw);
+        if (typeof (raw as SurfaceArtifact).iv30 !== "number") {
+          surfaceForCli = path.join(ctx.artifactsDir, "surface.strategies.json");
+          await fs.writeFile(surfaceForCli, JSON.stringify(flat, null, 2) + "\n", "utf8");
+          logAgent(
+            "strategy-agent",
+            "info",
+            `Normalized nested surface → ${surfaceForCli}`,
+          );
+        }
+      } catch (normErr) {
+        const msg = normErr instanceof Error ? normErr.message : String(normErr);
+        logAgent("strategy-agent", "warn", `surface normalize skipped: ${msg}`);
+      }
+
       // Actual CLI: node dist/cli.js --paths … --surface … --out … (no subcommand)
       await runCommandOrThrow(
         process.execPath,
@@ -96,7 +117,7 @@ async function runStrategyAgent(ctx: AgentContext): Promise<AgentResult> {
           "--paths",
           pathsPath,
           "--surface",
-          surfacePath,
+          surfaceForCli,
           "--out",
           outPath,
           "--strategy",
