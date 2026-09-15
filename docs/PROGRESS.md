@@ -22,7 +22,7 @@ Educational / research only — **not** investment advice, **no** live order rou
 
 | # | Slug | Title | Branch | Owns path | Status |
 | --- | --- | --- | --- | --- | --- |
-| 1 | `gbm` | Geometric Brownian Motion Stock Price Simulator | `cursor/p1-gbm-dedd` | `projects/01-gbm-simulator/` | pending |
+| 1 | `gbm` | Geometric Brownian Motion Stock Price Simulator | `cursor/p1-gbm-dedd` | `projects/01-gbm-simulator/` | done |
 | 2 | `mc-options` | Monte Carlo Option Pricing (EU call/put) | `cursor/p2-mc-options-dedd` | `projects/02-mc-option-pricing/` | pending |
 | 3 | `brownian` | Brownian Motion & Random Walk Visualizer | `cursor/p3-brownian-dedd` | `projects/03-brownian-visualizer/` | pending |
 | 4 | `ou` | Ornstein–Uhlenbeck Mean Reversion | `cursor/p4-ou-dedd` | `projects/04-ornstein-uhlenbeck/` | pending |
@@ -118,6 +118,12 @@ Sources to probe: Yahoo Finance (`yfinance`), Treasury.gov CSV archives, FRED (i
 
 ## Agent notes
 
+### Project 1 — GBM (`cursor/p1-gbm-dedd`, 2026-09-15)
+
+- Built standalone `projects/01-gbm-simulator/`: NumPy exact log-Euler GBM, μ/σ CSV calibration, Matplotlib + Plotly JSON export, CLI `gbm-sim`, umbrella JSON `{times, paths, params, stats}`, bundled synthetic `data/qqq_sample.csv`.
+- Tests: **17 passed** (`python3 -m pytest -q`).
+- Runnable via `pip install -e ".[dev]"` then `gbm-sim simulate|calibrate`.
+
 ### Orchestrator (2026-09-15)
 
 - Created this PROGRESS.md and launched 7 project agents + dataset survey + umbrella plan.
@@ -164,7 +170,7 @@ Sources to probe: Yahoo Finance (`yfinance`), Treasury.gov CSV archives, FRED (i
 
 ## Merge checklist → `dev`
 
-- [ ] p1 GBM done
+- [x] p1 GBM done
 - [ ] p2 MC options done
 - [ ] p3 Brownian done
 - [ ] p4 OU done
