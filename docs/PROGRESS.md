@@ -38,7 +38,7 @@ Educational / research only — **not** investment advice, **no** live order rou
 | --- | --- | --- | --- |
 | API backend | `cursor/umbrella-web-dedd` → merges to `dev` | `apps/api/` | done |
 | Website frontend | `cursor/umbrella-web-dedd` → merges to `dev` | `apps/web/` | done |
-| Combined | **`dev`** | whole monorepo | pending |
+| Combined | **`dev`** | whole monorepo | done |
 | `main` | — | — | **do not push until user asks** |
 
 ---
@@ -213,6 +213,6 @@ Sources to probe: Yahoo Finance (`yfinance`), Treasury.gov CSV archives, FRED (i
 - [x] Dataset survey written + selected datasets vendored/cached
 - [x] `apps/api` serves all 7
 - [x] `apps/web` shows all 7
-- [ ] All merged to `dev`
+- [x] All merged to `dev`
 - [x] Smoke tests pass (umbrella API fallbacks)
 - [x] `main` untouched
