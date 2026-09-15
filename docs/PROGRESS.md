@@ -118,6 +118,14 @@ Sources to probe: Yahoo Finance (`yfinance`), Treasury.gov CSV archives, FRED (i
 
 ## Agent notes
 
+### Dataset Scout (2026-09-15) — `done`
+
+- Branch / worktree: `cursor/dataset-survey-dedd` → `/agent/wt/datasets`
+- Evaluated **201** candidates (193 base + 8 pairs spreads); **199 OK**, 2 empty (`ANSS`, `SQ`)
+- Wrote `data/DATASET_SURVEY.md`, `data/selected/manifest.json`, 24 sample CSVs
+- Scoring: `0.35*liquidity + 0.40*history + 0.25*completeness`; tags `gbm|heston|ou|var|mc-options|brownian|rough-vol`
+- Top fits: GBM/Heston/Rough/MC → QQQ+megacaps; OU → pairs + UST curve + ^TNX; VaR → QQQ/SPY/IWM/TLT/GLD/HYG/IEF/EEM; Brownian → synthetic Wiener (+ optional residuals)
+
 ### Orchestrator (2026-09-15)
 
 - Created this PROGRESS.md and launched 7 project agents + dataset survey + umbrella plan.
@@ -135,7 +143,7 @@ Sources to probe: Yahoo Finance (`yfinance`), Treasury.gov CSV archives, FRED (i
 - [ ] p5 Heston done
 - [ ] p6 VaR done
 - [ ] p7 Rough vol done
-- [ ] Dataset survey written + selected datasets vendored/cached
+- [x] Dataset survey written + selected datasets vendored/cached
 - [ ] `apps/api` serves all 7
 - [ ] `apps/web` shows all 7
 - [ ] All merged to `dev`
