@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "monte-carlo-var"
+version = "0.1.0"
+description = "Monte Carlo Value-at-Risk and Expected Shortfall for multi-asset ETF portfolios"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Odon Ineza", email = "oineza@nd.edu" }]
+dependencies = [
+  "numpy>=1.24",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.4",
+]
+data = [
+  "yfinance>=0.2.40",
+]
+
+[project.scripts]
+monte-carlo-var = "monte_carlo_var.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
