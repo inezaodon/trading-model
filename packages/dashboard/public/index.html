@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Trading Model — Terminal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <header class="top">
+      <div class="brand">
+        <span class="brand-mark">TM</span>
+        <div>
+          <h1>Trading Model</h1>
+          <p class="sub">Research terminal · paths · variance · PnL</p>
+        </div>
+      </div>
+      <div class="status" id="status">
+        <span class="dot"></span>
+        <span id="status-text">loading artifacts…</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="summary" id="summary" aria-label="Summary">
+        <!-- filled by JS -->
+      </section>
+
+      <section class="charts">
+        <figure class="panel">
+          <figcaption>
+            <span>Spot path S<sub>t</sub></span>
+            <span class="meta" id="spot-meta">—</span>
+          </figcaption>
+          <canvas id="spot-chart" width="900" height="280"></canvas>
+        </figure>
+        <figure class="panel">
+          <figcaption>
+            <span>Variance v<sub>t</sub></span>
+            <span class="meta" id="var-meta">—</span>
+          </figcaption>
+          <canvas id="var-chart" width="900" height="280"></canvas>
+        </figure>
+        <figure class="panel">
+          <figcaption>
+            <span>Strategy PnL</span>
+            <span class="meta" id="pnl-meta">—</span>
+          </figcaption>
+          <canvas id="pnl-chart" width="900" height="280"></canvas>
+        </figure>
+      </section>
+    </main>
+
+    <footer>
+      <span>Artifacts via <code>/artifacts/*.json</code></span>
+      <button type="button" id="reload">Reload</button>
+    </footer>
+
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>

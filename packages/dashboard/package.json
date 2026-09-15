@@ -1,0 +1,16 @@
+{
+  "name": "@trading-model/dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Lightweight viz of paths, variance, and PnL from orchestrator artifacts",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/copy-static.mjs",
+    "start": "node scripts/serve.mjs",
+    "serve": "node scripts/serve.mjs",
+    "test": "node --test test/smoke.test.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
