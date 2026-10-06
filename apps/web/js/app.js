@@ -1,59 +1,83 @@
 /* Shared client for Trading Model umbrella web */
 
-const API_BASE = window.TM_API_BASE || "";
+// SITE_BASE: URL prefix the demos are served under ("" standalone, "/trading" when mounted in the combined app).
+// Override with window.TM_BASE; window.TM_API_BASE overrides the API origin/prefix (default: SITE_BASE).
+const SITE_BASE = (window.TM_BASE !== undefined ? window.TM_BASE : /^\/trading(\/|$)/.test(location.pathname) ? "/trading" : "").replace(/\/$/, "");
+const API_BASE = window.TM_API_BASE !== undefined ? window.TM_API_BASE : SITE_BASE;
 
 const PROJECTS = [
-  { slug: "gbm", title: "GBM Simulator", short: "Geometric Brownian Motion paths" },
-  { slug: "mc-options", title: "MC Options", short: "European call/put Monte Carlo" },
-  { slug: "brownian", title: "Brownian", short: "Wiener & random walks" },
-  { slug: "ou", title: "OU Mean Reversion", short: "Ornstein–Uhlenbeck spreads" },
-  { slug: "heston", title: "Heston SV", short: "Stochastic volatility" },
-  { slug: "var", title: "MC VaR", short: "Portfolio Value-at-Risk" },
-  { slug: "rough-vol", title: "Rough Vol", short: "Rough Bergomi" },
+  { slug: "gbm", nav: "GBM", title: "GBM Simulator", short: "Geometric Brownian Motion paths" },
+  { slug: "mc-options", nav: "Options", title: "MC Options", short: "European call/put Monte Carlo" },
+  { slug: "brownian", nav: "Brownian", title: "Brownian", short: "Wiener & random walks" },
+  { slug: "ou", nav: "OU", title: "OU Mean Reversion", short: "Ornstein–Uhlenbeck spreads" },
+  { slug: "heston", nav: "Heston", title: "Heston SV", short: "Stochastic volatility" },
+  { slug: "var", nav: "VaR", title: "MC VaR", short: "Portfolio Value-at-Risk" },
+  { slug: "rough-vol", nav: "Rough Vol", title: "Rough Vol", short: "Rough Bergomi" },
 ];
 
-const TEAL_PALETTE = [
-  "#2dd4bf",
-  "#5eead4",
-  "#99f6e4",
-  "#14b8a6",
-  "#0d9488",
-  "#67e8f9",
-  "#22d3ee",
-  "#a5f3fc",
-];
+function cssVar(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+// Series colors come from the design tokens so charts follow light/dark.
+const PALETTE = new Proxy([], {
+  get(_, i) {
+    if (i === "length") return 5;
+    return cssVar(["--c1", "--c3", "--c4", "--c5", "--c2"][Number(i) % 5]);
+  },
+});
+const TEAL_PALETTE = PALETTE;
 
 function qs(sel, el = document) {
   return el.querySelector(sel);
 }
+
+const THEME_KEY = "tm-theme";
+function applyTheme(t) {
+  if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+  else document.documentElement.removeAttribute("data-theme");
+}
+try {
+  applyTheme(localStorage.getItem(THEME_KEY));
+} catch (_) {}
 
 function mountHeader(activeSlug = null) {
   const header = qs("#site-header");
   if (!header) return;
   const links = PROJECTS.map(
     (p) =>
-      `<a href="/projects/${p.slug}" class="${p.slug === activeSlug ? "active" : ""}">${p.title}</a>`
+      `<a href="${SITE_BASE}/projects/${p.slug}" class="${p.slug === activeSlug ? "active" : ""}" ${p.slug === activeSlug ? 'aria-current="page"' : ""}>${p.nav || p.title}</a>`
   ).join("");
   header.innerHTML = `
     <div class="inner">
-      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>Trading Model</a>
+      <a class="brand" href="${SITE_BASE}/">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-6 4 3 8-9"/><path d="M15 5h5v5"/></svg></span>
+        <span>Trading Model<small>Stochastic research hub</small></span>
+      </a>
       <button class="nav-toggle" type="button" aria-label="Menu">Menu</button>
       <nav class="nav" id="main-nav">
-        <a href="/" class="${activeSlug ? "" : "active"}">Home</a>
+        <a href="${SITE_BASE}/" class="${activeSlug ? "" : "active"}">Home</a>
         ${links}
       </nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle light or dark theme" title="Toggle theme">◐</button>
     </div>`;
-  const toggle = qs(".nav-toggle", header);
-  const nav = qs("#main-nav", header);
-  toggle?.addEventListener("click", () => nav.classList.toggle("open"));
+  qs(".nav-toggle", header)?.addEventListener("click", () => qs("#main-nav", header).classList.toggle("open"));
+  qs(".theme-toggle", header)?.addEventListener("click", () => {
+    const dark =
+      document.documentElement.getAttribute("data-theme") === "dark" ||
+      (!document.documentElement.getAttribute("data-theme") && matchMedia("(prefers-color-scheme: dark)").matches);
+    const next = dark ? "light" : "dark";
+    applyTheme(next);
+    try {
+      localStorage.setItem(THEME_KEY, next);
+    } catch (_) {}
+  });
 }
 
 function mountFooter() {
   const el = qs("#site-footer");
   if (!el) return;
   el.innerHTML = `
-    <p>Educational / research only — not investment advice. No live order routing.</p>
-    <p>Integration status: <code>docs/PROGRESS.md</code> in the repository.</p>`;
+    <p>Educational / research only — not investment advice. No live order routing.</p>`;
 }
 
 async function apiGet(path) {
@@ -139,7 +163,7 @@ function chartPaths(canvas, result, chartRef, opts = {}) {
     datasets.push({
       label: "mean",
       data: result.series.mean.map((y, j) => ({ x: times[j], y })),
-      borderColor: "#f0b429",
+      borderColor: cssVar("--c2"),
       borderWidth: 2,
       borderDash: [5, 4],
       pointRadius: 0,
@@ -150,7 +174,7 @@ function chartPaths(canvas, result, chartRef, opts = {}) {
     datasets.push({
       label: "θ",
       data: result.series.theta_line.map((y, j) => ({ x: times[j], y })),
-      borderColor: "#f07178",
+      borderColor: cssVar("--bad"),
       borderWidth: 1.5,
       borderDash: [2, 3],
       pointRadius: 0,
@@ -161,7 +185,7 @@ function chartPaths(canvas, result, chartRef, opts = {}) {
     datasets.push({
       label: "QV",
       data: result.series.quadratic_variation.map((y, j) => ({ x: times[j], y })),
-      borderColor: "#f0b429",
+      borderColor: cssVar("--c2"),
       borderWidth: 1.5,
       pointRadius: 0,
       yAxisID: opts.qvAxis ? "y1" : "y",
@@ -172,21 +196,21 @@ function chartPaths(canvas, result, chartRef, opts = {}) {
   const scales = {
     x: {
       type: "linear",
-      title: { display: true, text: "t", color: "#8fa3b0" },
-      ticks: { color: "#8fa3b0" },
-      grid: { color: "rgba(120,160,180,0.12)" },
+      title: { display: true, text: "t", color: cssVar("--muted") },
+      ticks: { color: cssVar("--muted") },
+      grid: { color: cssVar("--grid") },
     },
     y: {
-      title: { display: true, text: opts.yLabel || "value", color: "#8fa3b0" },
-      ticks: { color: "#8fa3b0" },
-      grid: { color: "rgba(120,160,180,0.12)" },
+      title: { display: true, text: opts.yLabel || "value", color: cssVar("--muted") },
+      ticks: { color: cssVar("--muted") },
+      grid: { color: cssVar("--grid") },
     },
   };
   if (opts.qvAxis) {
     scales.y1 = {
       position: "right",
-      title: { display: true, text: "QV", color: "#f0b429" },
-      ticks: { color: "#f0b429" },
+      title: { display: true, text: "QV", color: cssVar("--c2") },
+      ticks: { color: cssVar("--c2") },
       grid: { drawOnChartArea: false },
     };
   }
@@ -199,7 +223,7 @@ function chartPaths(canvas, result, chartRef, opts = {}) {
       maintainAspectRatio: false,
       animation: { duration: 550 },
       plugins: {
-        legend: { display: paths.length <= 6, labels: { color: "#8fa3b0", boxWidth: 12 } },
+        legend: { display: paths.length <= 6, labels: { color: cssVar("--muted"), boxWidth: 12 } },
       },
       scales,
     },
@@ -224,7 +248,7 @@ function chartDual(canvas, result, chartRef) {
     ...variance.slice(0, 2).map((p, i) => ({
       label: `v ${i + 1}`,
       data: p.map((y, j) => ({ x: times[j], y })),
-      borderColor: ["#f0b429", "#f07178"][i],
+      borderColor: [cssVar("--c2"), cssVar("--bad")][i],
       borderWidth: 1.25,
       borderDash: [4, 3],
       pointRadius: 0,
@@ -239,23 +263,23 @@ function chartDual(canvas, result, chartRef) {
       responsive: true,
       maintainAspectRatio: false,
       animation: { duration: 550 },
-      plugins: { legend: { labels: { color: "#8fa3b0", boxWidth: 12 } } },
+      plugins: { legend: { labels: { color: cssVar("--muted"), boxWidth: 12 } } },
       scales: {
         x: {
           type: "linear",
-          title: { display: true, text: "t", color: "#8fa3b0" },
-          ticks: { color: "#8fa3b0" },
-          grid: { color: "rgba(120,160,180,0.12)" },
+          title: { display: true, text: "t", color: cssVar("--muted") },
+          ticks: { color: cssVar("--muted") },
+          grid: { color: cssVar("--grid") },
         },
         y: {
-          title: { display: true, text: "S", color: "#2dd4bf" },
-          ticks: { color: "#2dd4bf" },
-          grid: { color: "rgba(120,160,180,0.12)" },
+          title: { display: true, text: "S", color: cssVar("--c1") },
+          ticks: { color: cssVar("--c1") },
+          grid: { color: cssVar("--grid") },
         },
         y1: {
           position: "right",
-          title: { display: true, text: "v", color: "#f0b429" },
-          ticks: { color: "#f0b429" },
+          title: { display: true, text: "v", color: cssVar("--c2") },
+          ticks: { color: cssVar("--c2") },
           grid: { drawOnChartArea: false },
         },
       },
@@ -280,8 +304,8 @@ function chartHistogram(canvas, result, chartRef, opts = {}) {
         {
           label: opts.label || "count",
           data: counts,
-          backgroundColor: "rgba(45, 212, 191, 0.45)",
-          borderColor: "#2dd4bf",
+          backgroundColor: cssVar("--c5"),
+          borderColor: cssVar("--c1"),
           borderWidth: 1,
         },
       ],
@@ -293,21 +317,21 @@ function chartHistogram(canvas, result, chartRef, opts = {}) {
       plugins: { legend: { display: false } },
       scales: {
         x: {
-          title: { display: true, text: opts.xLabel || "value", color: "#8fa3b0" },
+          title: { display: true, text: opts.xLabel || "value", color: cssVar("--muted") },
           ticks: {
-            color: "#8fa3b0",
+            color: cssVar("--muted"),
             callback(v, i) {
               const x = labels[i];
               return typeof x === "number" ? x.toFixed(0) : x;
             },
             maxTicksLimit: 8,
           },
-          grid: { color: "rgba(120,160,180,0.12)" },
+          grid: { color: cssVar("--grid") },
         },
         y: {
-          title: { display: true, text: "count", color: "#8fa3b0" },
-          ticks: { color: "#8fa3b0" },
-          grid: { color: "rgba(120,160,180,0.12)" },
+          title: { display: true, text: "count", color: cssVar("--muted") },
+          ticks: { color: cssVar("--muted") },
+          grid: { color: cssVar("--grid") },
         },
       },
     },
@@ -321,6 +345,7 @@ function wireRunner({ slug, formId, canvasId, statusId, metricsId, mode }) {
   const metrics = qs(`#${metricsId}`);
   const chartRef = { current: null };
   if (!form || !canvas) return;
+  if (status) status.textContent = "Set parameters and press Run.";
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -344,6 +369,9 @@ function wireRunner({ slug, formId, canvasId, statusId, metricsId, mode }) {
 }
 
 window.TM = {
+  cssVar,
+  SITE_BASE,
+  API_BASE,
   PROJECTS,
   mountHeader,
   mountFooter,

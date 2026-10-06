@@ -8,7 +8,7 @@
       name="description"
       content="Umbrella research platform for seven stochastic calculus engines oriented to NASDAQ equity and options markets."
     />
-    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
     <header class="site-header" id="site-header"></header>
@@ -23,8 +23,15 @@
         </p>
         <div class="cta-row">
           <a class="btn btn-primary" href="#projects">Explore projects</a>
-          <a class="btn btn-ghost" href="/projects/gbm">Run GBM demo</a>
+          <a class="btn btn-ghost" href="projects/gbm">Run GBM demo</a>
         </div>
+      </section>
+
+      <section class="kpis" id="kpis" aria-label="Platform status">
+        <div class="kpi"><span class="l">Engines</span><span class="v" id="kpi-engines">7</span><span class="d">GBM · MC · Brownian · OU · Heston · VaR · Rough</span></div>
+        <div class="kpi"><span class="l">API status</span><span class="v" id="kpi-api">…</span><span class="d" id="kpi-api-d">checking</span></div>
+        <div class="kpi"><span class="l">Runs recorded</span><span class="v" id="kpi-runs">–</span><span class="d" id="kpi-runs-d">run history</span></div>
+        <div class="kpi"><span class="l">Last engine</span><span class="v" id="kpi-last">–</span><span class="d" id="kpi-last-d">no runs yet</span></div>
       </section>
 
       <section class="section" id="stack">
@@ -48,7 +55,7 @@
       </p>
     </main>
     <footer class="site-footer" id="site-footer"></footer>
-    <script src="/js/app.js"></script>
+    <script src="js/app.js"></script>
     <script>
       TM.mountHeader();
       TM.mountFooter();
@@ -62,9 +69,30 @@
         var: "Portfolio VaR / CVaR",
         "rough-vol": "Fractional rough Bergomi",
       };
+      (async () => {
+        const set = (id, t) => (document.getElementById(id).textContent = t);
+        try {
+          const h = await TM.apiGet("/api/v1/health");
+          set("kpi-api", h.ok ? "Online" : "Degraded");
+          set("kpi-api-d", h.service || "");
+        } catch (e) {
+          set("kpi-api", "Offline");
+          set("kpi-api-d", "API unreachable");
+        }
+        try {
+          const r = await TM.apiGet("/api/v1/runs");
+          const runs = r.runs || r.items || [];
+          set("kpi-runs", String(runs.length));
+          set("kpi-runs-d", r.backend ? "stored in " + r.backend : "run history");
+          if (runs[0]) {
+            set("kpi-last", runs[0].slug || "–");
+            set("kpi-last-d", runs[0].engine || (runs[0].result && runs[0].result.engine) || "");
+          }
+        } catch (e) {}
+      })();
       grid.innerHTML = TM.PROJECTS.map(
         (p, i) => `
-        <a class="project-link" href="/projects/${p.slug}">
+        <a class="project-link" href="${TM.SITE_BASE}/projects/${p.slug}">
           <div class="idx">0${i + 1} · ${p.slug}</div>
           <h3>${p.title}</h3>
           <p>${copy[p.slug] || p.short}</p>

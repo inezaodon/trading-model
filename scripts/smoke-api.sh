@@ -33,6 +33,7 @@ for p in projects:
     resp = c.post(f"/api/v1/{slug}/run", json=body)
     assert resp.status_code == 200, (slug, resp.text)
     data = resp.json()
+    assert data.get("engine") == "project", (slug, data.get("engine"))
     assert "metrics" in data and "series" in data, slug
     print(f"OK  {slug:12} engine={data.get('engine')}")
 r = c.get("/")

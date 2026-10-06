@@ -137,7 +137,8 @@ def run_project(slug: str, body: RunBody | None = None) -> dict:
     try:
         result = run_engine(slug, params)
     except Exception as exc:
-        raise HTTPException(status_code=500, detail=str(exc)) from exc
+        # Traceback was already logged by the loader; surface the real error.
+        raise HTTPException(status_code=500, detail=f"{type(exc).__name__}: {exc}") from exc
 
     firebase_stub.record_run(
         slug,
